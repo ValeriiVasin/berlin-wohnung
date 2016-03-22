@@ -50,6 +50,12 @@ export function getTerminUrl(terminBookingUrl) {
   }).catch(errorHandler);
 }
 
+function log(message) {
+  const time = moment().format('DD.MM.YYYY HH:mm');
+
+  console.log(`[${time}] ${message}`);
+}
+
 /**
  * Get available termins
  * @param  {string} url                 Termin Calendar Page url
@@ -59,28 +65,40 @@ export function getTerminUrl(terminBookingUrl) {
 function getAvailableTermins(terminCalendarUrl) {
   // months to check
   const unixDates = getMonthsStartDatesUnix(new Date(), 60);
+  const requests = unixDates.map(unixDate => ({
+    momentDate: moment.unix(unixDate),
+    url: addQueryParam(terminCalendarUrl, { Datum: unixDate })
+  }));
 
   return co(function *() {
-    for (const unixDate of unixDates) {
-      const url = addQueryParam(terminCalendarUrl, { Datum: unixDate });
-      const termins = yield getAvailableTerminsForMonth(url);
-      const terminsCount = termins.length;
+    const responses = yield Promise.all(
+      requests.map(request => getAvailableTerminsForMonth(request.url))
+    );
 
-      console.log(`${moment().format('DD.MM.YYYY HH:mm')} - ${moment.unix(unixDate).format('MMM')} - ${terminsCount} termins available`);
+    // merge termins back
+    const results = responses.map((termins, index) => {
+      return Object.assign({}, requests[index], { termins });
+    });
+
+    let terminsFound = 0;
+    results.forEach(({ momentDate, url, termins }) => {
+      log(`${momentDate.format('MMMM')} / ${termins.length} termins available.`);
       urlsDebug(`Termin check url: ${url}`);
 
-      if (terminsCount !== 0) {
-        console.log(`Something available. Check whole calendar: ${url}`);
-
-        // output results
-        console.log('-'.repeat(20));
-        for (const termin of termins) {
-          console.log(`${termin.text}th:\n${termin.url}\n\n`);
-        }
-
-        return url;
+      if (termins.length === 0) {
+        return;
       }
-    }
+
+      terminsFound += termins.length;
+
+      log(`${'-'.repeat(10)} Available termins info: ${'-'.repeat(10)}`);
+      log(`Calendar page: ${url}`);
+      // print termins dates with links
+      termins.forEach(termin => log(`${termin.text}th:\n${termin.url}\n\n`));
+      log(`${'-'.repeat(30)}`);
+    });
+
+    return terminsFound;
   }).catch(errorHandler);
 }
 
@@ -108,27 +126,23 @@ function terminUrlExtractor(document) {
   return link && link.href;
 }
 
-function notify(url) {
+function notify() {
   notifier.notify({
     title: 'Appointment booking possibility',
-    message: 'click to open url',
-    open: url,
     icon: path.resolve('./buro.png'),
     contentImage: false,
     sound: 'Ping',
     wait: true
-  }).on('click', () => {
-    exec(`open ${url}`);
   });
 }
 
 export function check(terminBookingUrl = TERMIN_BOOKING_URL) {
   return co(function *() {
     const terminCalendarUrl = yield getTerminUrl(terminBookingUrl);
-    const availableToBookUrl = yield getAvailableTermins(terminCalendarUrl);
+    const terminsFound = yield getAvailableTermins(terminCalendarUrl);
 
-    if (availableToBookUrl) {
-      notify(availableToBookUrl);
+    if (terminsFound) {
+      notify();
     }
   }).catch(errorHandler);
 }
