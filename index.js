@@ -70,7 +70,14 @@ function getAvailableTermins(terminCalendarUrl) {
       urlsDebug(`Termin check url: ${url}`);
 
       if (terminsCount !== 0) {
-        console.log(`Termin url: ${url}`);
+        console.log(`Something available. Check whole calendar: ${url}`);
+
+        // output results
+        console.log('-'.repeat(20));
+        for (const termin of termins) {
+          console.log(`${termin.text}th:\n${termin.url}\n\n`);
+        }
+
         return url;
       }
     }
