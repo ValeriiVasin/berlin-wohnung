@@ -63,7 +63,7 @@ function getAvailableTermins(terminCalendarUrl) {
   return co(function *() {
     for (const unixDate of unixDates) {
       const url = addQueryParam(terminCalendarUrl, { Datum: unixDate });
-      const termins = yield query(url, getAvailableTerminsForMonth);
+      const termins = yield getAvailableTerminsForMonth(url);
       const terminsCount = termins.length;
 
       console.log(`${moment().format('DD.MM.YYYY HH:mm')} - ${moment.unix(unixDate).format('MMM')} - ${terminsCount} termins available`);
@@ -123,7 +123,7 @@ function notify(url) {
 }
 
 export function check(terminBookingUrl = TERMIN_BOOKING_URL) {
-  co(function *() {
+  return co(function *() {
     const terminCalendarUrl = yield getTerminUrl(terminBookingUrl);
     const availableToBookUrl = yield getAvailableTermins(terminCalendarUrl);
 

@@ -8,4 +8,7 @@ const job = new CronJob({
   onTick: check
 });
 
-job.start();
+// do check initially
+check().then(() => {
+  job.start();
+});
