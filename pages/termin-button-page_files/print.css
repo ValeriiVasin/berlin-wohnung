@@ -1,0 +1,269 @@
+.html5-section.content-marginal {
+    background: none;
+    padding:0;
+    margin: 0;
+}
+
+*[class*="span"] {
+    float:none !important;
+}
+
+.span5 {
+    width:auto !important;
+}
+
+body {
+    background-color: #fff !important;
+    background-image: none !important;
+    font: 12pt Corbel, Lucida Grande, Lucida Sans Unicode, Arial, serif !important;
+    background: #fff !important;
+    color: #000;
+    /*text-align: justify;*/ /* Blocksatz */
+    width: 99,9%;
+}
+body * {
+    font: 12pt Corbel, Lucida Grande, Lucida Sans Unicode, Arial, serif !important;
+}
+dl {
+    width:100%;
+}
+dl dt {
+    float:left !important;
+    display: block;
+    width: 60px;
+}
+
+a:link, a:hover, a:visited {
+    color: #003684 !important;
+    text-decoration:none;
+}
+
+
+
+div.portal-header {
+    border: none;
+    background: none;
+    text-shadow: none;
+    box-shadow: none;
+    height: 40px;
+    display:block;
+    width:100%;
+}
+
+#slice_background {
+    margin-top: 20px;
+}
+
+ul {
+    margin:10px;
+    padding:2px;
+}
+
+ul li{
+    margin:0px 0 0px 10px;
+    padding:2px;
+}
+
+h1 {
+    font-size: 150%  !important;
+}
+h2 {
+    font-size: 140%  !important;
+}
+h3 {
+    font-size: 130% !important;
+}
+h4 {
+    font-size: 120% !important;
+}
+h5 {
+    font-size: 110% !important;
+}
+h6 {
+    font-size: 100% !important;
+}
+
+.html5-section.content-marginal {
+    page-break-after:avoid !important;
+    page-break-before:avoid !important;
+}
+
+h1:first-child, 
+h2:first-child, 
+h3:first-child, 
+h4:first-child, 
+h5:first-child, 
+h6:first-child {
+    page-break-after:avoid !important;
+    page-break-before:avoid !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-after:avoid !important;
+    page-break-before:avoid !important;
+    display:block !important;
+    float:none !important;
+    font-weight:bold !important;
+    color: rgb(181, 5, 14);
+}
+
+div.subtopics .span6 {
+    width:auto !important;
+}
+
+div.subtopics .span3 {
+    width:auto !important;
+    display:block;
+}
+
+div.portal-header .main-image {
+    border: none !important;
+}
+
+div.portal-header .main-image img {
+    float: right !important;
+    border: none !important;
+}
+
+div.html5-header.content-header {
+    border-top: solid 0px #666;
+    margin: 0;
+    display:block;
+    width:100%;
+}
+
+div.html5-header.content-header div.html5-section.section-logo.senatsverwaltung {
+    top: 0px;
+    position:absolute;
+    float:left;
+    border-left: 7px solid rgb(37, 50, 118);
+}
+
+div.html5-header.content-header div.html5-section.section-logo.senatsverwaltung .institution {
+    display: block  !important;
+    font-size: 140%  !important;
+    color: rgb(76, 76, 76)  !important;
+}
+
+div.html5-header.content-header div.html5-section.section-logo.senatsverwaltung .title {
+    font-weight: bold  !important;
+    display: block  !important;
+    color: black  !important;
+    font-size: 140%  !important;
+}
+
+div.portal-header .html5-nav,
+div.portal-header .html5-nav .portal-navi,
+div.html5-header.content-header div.html5-section.search,
+div.portal-header .red-line,
+div.html5-nav.content-navi-top,
+div.html5-nav.content-navi-left,
+div.html5-section.breadcrumb,
+#gmap-zoom,
+#gmap .extended-controls,
+#tabs,
+div.article-content a[href*="maps"]:after,
+div.article-content a[href*="terminvereinbarung/termin"]:after,
+.print-hide,
+.btn,
+.behoerdenitem .row .span2,
+button, input, textarea,
+.azlist-letter a,
+.html5-footer.content-footer .icon-printer_32,
+.html5-footer.content-footer .icon-totop,
+.anbindung a,
+.content-marginal-termin,
+.azlist-pager,
+.zmstermin p a,
+.top-dls .span2,
+#feedback-footer,
+.navbar.content-navigation-left,
+#orte_tabs
+ {
+    display:none !important;
+}
+
+div.html5-section.content.type-article {
+    padding: 0 0 !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+}
+
+div.article-content {
+    padding-right: 20px !important;
+}
+
+div.article-content .span7,
+div.article-content .span9 {
+    display:block !important;
+    width:100% !important;
+}
+
+div.article-content .span7 .section_splitter,
+.html5-section.content-marginal {
+    border:none;
+}
+.column-content a[href]:after,
+div.article-content a[href]:after,
+div.html5-footer.content-footer a[href]:after,
+div.html5-footer.portal-footer a[href]:after,
+div.content-marginal-contact a[href]:after {
+    background-color: inherit;
+    color: #33f;
+    content: " (" attr(href) ")";    
+    font-style: italic;
+}
+
+div.content-marginal-contact .list.contact-info li{
+    display:block;
+}
+.column-content a[href^="/"]:after,
+div.article-content a[href^="/"]:after,
+div.html5-footer.content-footer a[href^="/"]:after,
+div.content-marginal-contact a[href^="/"]:after {
+    content: " (http://service.berlin.de" attr(href)")"; 
+    color: #33f;
+    font-style: italic;
+}
+
+
+.column-content a[href*="terminvereinbarung"] {
+    display:none;
+}
+
+#gmap,
+.behoerdenitem .row .span5 {
+    width:100% !important;
+}
+
+.print-only {
+    display:block !important;
+}
+
+.azlist-letter {
+}
+
+.html5-section.content-marginal {
+    width:500px !important;
+}
+
+.azlist .list .row .span3 {
+    width:auto !important;
+}
+
+.topic-dls .span5{
+    width:99% !important;
+    display:block !important;
+    float:none !important;
+}
+
+.topic-dls .span2 {
+    display:none !important;
+    float:none !important;
+}
+
+.tab-pane,
+.topic-dls {
+    display:block !important;
+    float:none !important;
+}

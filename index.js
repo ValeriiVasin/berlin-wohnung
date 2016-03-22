@@ -44,7 +44,7 @@ function query(url, extractor) {
 }
 
 // extract url from booking button
-function getTerminUrl(terminBookingUrl) {
+export function getTerminUrl(terminBookingUrl) {
   return co(function *() {
     return yield query(terminBookingUrl, terminUrlExtractor);
   }).catch(errorHandler);
@@ -63,7 +63,8 @@ function getAvailableTermins(terminCalendarUrl) {
   return co(function *() {
     for (const unixDate of unixDates) {
       const url = addQueryParam(terminCalendarUrl, { Datum: unixDate });
-      const terminsCount = yield query(url, terminDatesExtractor);
+      const termins = yield query(url, getAvailableTerminsForMonth);
+      const terminsCount = termins.length;
 
       console.log(`${moment().format('DD.MM.YYYY HH:mm')} - ${moment.unix(unixDate).format('MMM')} - ${terminsCount} termins available`);
       urlsDebug(`Termin check url: ${url}`);
@@ -76,18 +77,28 @@ function getAvailableTermins(terminCalendarUrl) {
   }).catch(errorHandler);
 }
 
+// extract available termins for the month
+// [{ label: string, url: string }] available labels and url to follow
+export function getAvailableTerminsForMonth(url) {
+  return co(function *() {
+    return yield query(url, availableCalendarTerminsExtractor);
+  }).catch(errorHandler);
+}
+
+function availableCalendarTerminsExtractor(document) {
+  const TERMIN_LINKS_SELECTOR = '.calendar-month-table:nth-child(1) td a';
+  const links = document.querySelectorAll(TERMIN_LINKS_SELECTOR);
+
+  return Array.from(links).map(link => {
+    return { url: link.href, text: link.textContent.trim() };
+  });
+}
+
 function terminUrlExtractor(document) {
   const TERMIN_BUTTON_SELECTOR = 'a.btn[href^="https://service.berlin.de/terminvereinbarung/termin/tag.php"]';
   const link = document.querySelector(TERMIN_BUTTON_SELECTOR);
 
   return link && link.href;
-}
-
-function terminDatesExtractor(document) {
-  // extract from the first calendar - second will be handled by another call
-  const TERMIN_LINKS = '.calendar-month-table:nth-child(1) td a';
-
-  return document.querySelectorAll(TERMIN_LINKS).length;
 }
 
 function notify(url) {

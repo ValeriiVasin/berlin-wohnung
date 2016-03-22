@@ -1,0 +1,566 @@
+#top {
+    position:relative;
+}
+
+.print-only {
+    display:none;
+}
+
+#d115-metainfo {
+    display:none;
+}
+
+/**
+  * Imperia 9 Hacks, remove if possible
+  */
+
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2em;
+    margin-bottom: 0.6em;
+    margin-top: 1.2em;
+}
+dl dt {
+    float:none !important;
+}
+
+/* AZ Listen */
+.topic-dls {
+    margin-bottom: 5px;
+}
+
+.azlist-letter {
+    /*min-height: 28px;*/
+    height: auto;
+}
+
+.azlist-letter .letter {
+    padding: 0 124px 0 0;
+}
+
+
+/*
+ * --- mobile
+ */
+.column-content .breadcrumb {
+    /*Breadcrumb im content nur mobil*/
+    display: none;
+}
+.breadcrumb li {
+    white-space: normal;
+}
+body #slice_background div.slice_background-inner .title {
+    font-size: 200%;
+    margin-bottom: 10px;
+    margin-top: 0;
+    padding-top: 5px;
+    line-height: 1.1em;
+}
+body #slice_background .mobile-slice_background-form {
+    display: none;
+    width: 100%;
+        margin-top: 25px;
+}
+body #slice_background .mobile-slice_background-form .input-append input {
+    width:100%;
+    height: 16px;
+}
+
+@media (max-width: 767px) {
+    .column-content .breadcrumb {
+        display: block;
+    }
+    .content-navi-wrapper.navbar {
+        padding: 0;
+    }
+    body #slice_background .slice_background-form  {
+        margin-bottom: 15px;
+        padding-bottom: 0;
+        padding-top: 15px;
+        display:none;
+    }
+    body #slice_background .mobile-slice_background-form {
+        display: block;
+    }
+
+    .breadcrumb li {
+        margin-bottom: 5px;
+    }
+}
+@media (max-width: 380px) {
+    body #slice_background {
+        background-image: none;
+        border-bottom: 1px solid #C6C6C6;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        min-height: 0px;
+    }
+    body #slice_background div.slice_background-inner {
+        padding: 0px;
+    }
+    body #slice_background .mobile-slice_background-form {
+        display: block;
+    }
+    body #slice_background .slice_background-form  {
+        display: none;
+    }
+    body #slice_background div.slice_background-inner ul {
+        margin-top: 10px;
+    }
+}
+@media (max-width: 660px) {
+    body #slice_background {
+        background-image: none;
+        border-bottom: 1px solid #C6C6C6;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        min-height: 0px;
+    }
+}
+@media (min-width: 660px) {
+    body #slice_background .slice_background-form  {
+        display:block;
+    }
+    body #slice_background .mobile-slice_background-form {
+        display: none;
+    }
+}
+
+
+
+/**
+ * Flaggen fuer Sprachen
+ */
+
+.contact-list dd {
+    display:block;
+}
+li.lang_de a {
+    background-image: url('flags/icon_flag_de.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    display:block;
+    height:21px;
+    padding-left: 36px;
+}
+
+li.lang_en a {
+    background-image: url('flags/icon_flag_en.png');
+    background-position: 0px 0px;
+    background-repeat: no-repeat;
+    display:block;
+    height:21px;
+    padding-left: 36px;
+}
+
+
+/**
+ *   Google Map Container
+ */
+#map-wrapper {
+  height: 100%;
+}
+.gmap-full {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+}
+.gmap-larger {
+  /*width: 940px;*/
+  height: 580px;
+}
+.gmap-large {
+  /*width: 760px;*/
+  height: 380px;
+}
+
+.gmap-buergerlarge {
+  /*width: 700px;*/
+  height: 300px;
+}
+
+.gmap-big {
+  /*width: 600px;*/
+  height: 300px;
+}
+.gmap-buerger {
+  /*width: 540px;*/
+  height: 300px;
+}
+.gmap-small {
+  /*width: 160px;*/
+  height: 120px;
+}
+.gmap-max {
+  /*color: black;*/
+  cursor: pointer;
+}
+
+#gmap-zoom {
+    float: right;
+    cursor: pointer;
+    color: #888;
+}
+
+.gmap {
+    border-bottom: solid 1px #ccc;
+}
+
+.toggleform {
+  cursor: pointer;
+}
+.extended-controls {
+  margin: 5px;
+  /*text-align: left;*/
+  border: 1px solid #888;
+  padding: 0;
+  background-color: #fff;
+  -webkit-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.extended-controls:hover {
+    max-height:none !important;
+}
+
+.extended-controls ul {
+  margin-left: 0px;
+  padding:0;
+  margin:0;
+}
+.extended-controls ul li {
+  list-style-type: none;
+  padding:  3px 10px;
+  border-bottom: 1px solid #aaa;
+  cursor: pointer;
+  font-weight: bold;
+}
+.extended-controls ul li:hover,
+.extended-controls ul li.gmap-options-selected:hover {
+    background-color: #f2f4f9;
+}
+.extended-controls ul li:last-child {
+    border-bottom: 0px solid #aaa;
+    -webkit-border-radius: 3px;
+   -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.extended-controls ul li.gmap-options-selected {
+    background-color: #f2f4f5;
+}
+.extended-controls ul li.gmap-options-hide {
+    display:none;
+}
+.extended-controls ul li.gmap-options-show {
+    -webkit-border-bottom-left-radius: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+         -moz-border-radius-bottomright: 3px;
+          -moz-border-radius-bottomleft: 3px;
+              border-bottom-left-radius: 3px;
+              border-bottom-right-radius: 3px;
+    border-bottom: 0px solid #aaa;
+}
+.extended-controls:hover ul li.gmap-options-show {
+    -webkit-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-right-radius: 0px;
+         -moz-border-radius-bottomright: 0px;
+          -moz-border-radius-bottomleft: 0px;
+              border-bottom-left-radius: 0px;
+              border-bottom-right-radius: 0px;
+    border-bottom: 1px solid #aaa;
+}
+.extended-controls:hover ul li.gmap-options-hide {
+    display:block;
+}
+.extended-controls:hover .gmap-options-head {
+    display:none;
+}
+.extended-controls:hover  ul li:first-child {
+    -webkit-border-top-left-radius: 3px;
+    -webkit-border-top-right-radius: 3px;
+         -moz-border-radius-topright: 3px;
+          -moz-border-radius-topleft: 3px;
+              border-top-left-radius: 3px;
+              border-top-right-radius: 3px;
+}
+.extended-controls ul li div.gmap-options-checkbox {
+    background-image: url("/service.bde/images/google-map-sprite-checkboxen.png");
+    background-position: 0px -27px;
+    background-repeat: no-repeat;
+    padding-left: 25px;
+}
+.extended-controls ul li.gmap-options-selected  div.gmap-options-checkbox{
+    background-image: url("/service.bde/images/google-map-sprite-checkboxen.png");
+    background-position: top left;
+}
+
+.extended-controls .gmap-options-head {
+    text-align: center;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #999;
+}
+
+.gmap-options-head img {
+    margin: auto auto;
+    margin-top: -8px;
+    position: absolute;
+    top: 50%;
+    margin-top: -14px;
+    left: 50%;
+    margin-left: -4px;
+}
+
+.extended-controls .toggle {
+  cursor: pointer;
+  overflow: hidden;
+}
+.extended-controls .toggle span {
+  padding: 2px 0 0 2px;
+  font-family: "IconicStroke";
+  font-size: 1.2em;
+}
+
+.gmap-marker-link {
+    background-image: url(/berlinonline/images/arrow_blue_tiny.png);
+    background-position: right 4px;
+    background-repeat: no-repeat;
+    padding-right: 10px;
+    margin-right: 1px;
+}
+
+/**
+ * Klasse .alphabet-nav
+ * Runde CSS3-Kugeln fuer die Navigation von AZ-Listen
+ * Verwendet in /pages/land/ba/az
+ */
+.alphabet-nav {
+  margin: 0;
+  list-style-type: none;
+}
+.alphabet-nav li {
+  float: left;
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  margin-right: 18px;
+  margin-bottom: 18px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  border-radius: 100px;
+  background: #253276;
+}
+.alphabet-nav li a {
+  font-size: 120%;
+  font-weight: bold;
+  position: relative;
+  color: white;
+  top: 10px;
+  text-decoration: none;
+}
+
+/* Suche
+-------------------------- */
+
+.search-distance {
+    width: 80px;
+}
+.search-odd {
+    background-color: #ececec !important;
+}
+
+.teaser.search-result {
+    margin-bottom: 0px;
+}
+
+div.search-result {
+    padding: 10px !important;
+}
+
+div.search-result:hover {
+    background-color: #f5f5f9 !important;
+}
+
+div.search-result h3 a {
+    background-image: url(/berlinonline/images/arrow_blue_tiny.png);
+    background-position: left 4px;
+    background-repeat: no-repeat;
+    padding-left: 8px;
+}
+div.search-result .type {
+    float: right;
+    color: #333 !important;
+    padding-left: 5px;
+}
+
+.sbahn,
+.ubahn,
+.tram,
+.bus,
+.bahn,
+.faehre {
+    background-repeat:no-repeat;
+    line-height:18px;
+    padding-left:17px;
+}
+.sbahn {
+    background-image:url("/_img/pictogramme/char_sbahn.gif");
+}
+.ubahn {
+    background-image:url("/_img/pictogramme/char_ubahn.gif");
+}
+.tram {
+    background-image:url("/_img/pictogramme/char_tram.gif");
+}
+.bus {
+    background-image:url("/_img/pictogramme/char_bus.gif");
+}
+.bahn {
+    background-image:url("/_img/pictogramme/char_bahn.gif");
+}
+.faehre {
+    background-image:url("/_img/pictogramme/char_faehre.gif");
+}
+
+.list-letter a {
+    font-size: 70%;
+}
+
+
+#slice_background {
+    background-image: url(/service.bde/images/slice_background.png);
+    background-repeat: no-repeat;
+    background-position: left top;
+    max-width: 620px;
+    width: 100%;
+    min-height:260px;
+    height: auto;
+}
+#slice_background div.slice_background-inner {
+    padding-top: 20px;
+    padding-left: 30px;
+}
+#slice_background div.slice_background-inner h1 {
+    font-size: 200%;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-top: 5px;
+}
+#slice_background div.slice_background-inner span {
+    font-size: 115%;
+    font-weight: bold;
+}
+#slice_background .slice_background-form {
+    padding-top: 20px;
+    padding-bottom: 0;
+}
+#slice_background .slice_background-form input {
+    border-color: #212D6A;
+}
+#slice_background div.slice_background-inner ul {
+    margin-top: -10px;
+    margin-bottom: 0;
+}
+#slice_background div.slice_background-inner ul li a{
+    color: #212D6A;
+    font-weight: bold;
+}
+
+/**
+  * DL-Detailseite
+  */
+
+.behoerdenitem {
+    margin-bottom: 1.5em;
+}
+
+.behoerdenitem h4 {
+    font-size: 1em;
+    margin-bottom: 0.75em;
+    margin-top: 0;
+}
+
+.behoerdenitem .row:hover a {
+    color: #000;
+}
+.behoerdenitem .row a:hover {
+    color: #003684;
+}
+
+/* Error
+-------------------- */
+
+.error-header {
+    border: solid 6px #212D6A;
+    min-height: 100px;
+    padding: 10px 30px;
+}
+.error-header h1 {
+    padding: 5px 0;
+    margin: 0;
+}
+.error-number {
+    font-size: 130px;
+    float: right;
+    color: #f5f5f8;
+    line-height: 95px;
+    padding:5px;
+}
+.red {
+    color: #c00;
+}
+
+.search-even {
+    background-color: #fff !important;
+}
+
+#top .container .skyscraper {
+    position: absolute;
+    top: 80px;
+    left: 110%;
+    left: calc(100% + 30px);
+    width: auto;
+    right: auto;
+}
+
+.meldung {
+    border: solid 1px #f00;
+}
+.meldung h3 {
+    color: #f00;
+    padding: 5px 0;
+    margin-top: 0;
+}
+
+.pagination ul .disabled>a, 
+.pagination ul .disabled>a:hover, 
+.pagination ul .disabled>a:focus {
+    color: #707070 !important
+}
+
+@media screen and (max-width: 380px) {
+    div.pagination ul li.pager-item {
+        display: none !important;
+    }
+}
+
+
+.ort-group {
+    padding-bottom: 10px;
+}
+
+.ort-group .azlist-letter {
+    margin-bottom: 5px;
+}
+
+.info-hinweis {
+    clear:both;
+    margin-top: -5px;
+}
