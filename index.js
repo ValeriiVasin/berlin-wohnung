@@ -3,7 +3,6 @@
 /*eslint-disable no-console*/
 
 import path from 'path';
-import { exec } from 'child_process';
 import co from 'co';
 import jsdom from 'jsdom';
 import moment from 'moment';
@@ -43,17 +42,17 @@ function query(url, extractor) {
   }).catch(errorHandler);
 }
 
+function log(message) {
+  const time = moment().format('DD.MM.YYYY HH:mm');
+
+  console.log(`[${time}] ${message}`);
+}
+
 // extract url from booking button
 export function getTerminUrl(terminBookingUrl) {
   return co(function *() {
     return yield query(terminBookingUrl, terminUrlExtractor);
   }).catch(errorHandler);
-}
-
-function log(message) {
-  const time = moment().format('DD.MM.YYYY HH:mm');
-
-  console.log(`[${time}] ${message}`);
 }
 
 /**
@@ -110,6 +109,7 @@ export function getAvailableTerminsForMonth(url) {
   }).catch(errorHandler);
 }
 
+// Extractors
 function availableCalendarTerminsExtractor(document) {
   const TERMIN_LINKS_SELECTOR = '.calendar-month-table:nth-child(1) td a';
   const links = document.querySelectorAll(TERMIN_LINKS_SELECTOR);
@@ -124,6 +124,30 @@ function terminUrlExtractor(document) {
   const link = document.querySelector(TERMIN_BUTTON_SELECTOR);
 
   return link && link.href;
+}
+
+export function getTimeTable(url) {
+  return co(function *() {
+    return yield query(url, timetableExtractor);
+  }).catch(errorHandler);
+}
+
+function timetableExtractor(document) {
+  const TIMETABLE_ROW_SELECTOR = '.timetable table tr';
+  const TIME_SELECTOR = 'th.buchbar';
+  const PLACE_SELECTOR = 'td.frei a';
+
+  return Array.from(document.querySelectorAll(TIMETABLE_ROW_SELECTOR))
+    .map(row => {
+      const time = row.querySelector(TIME_SELECTOR).textContent.trim();
+      const title = row.querySelector(PLACE_SELECTOR).textContent.trim();
+      const linkTitle = row.querySelector(PLACE_SELECTOR).getAttribute('title').trim();
+
+      // get everything after "Adresse: "
+      const address = linkTitle.replace(/.*Adresse\:\s*/, '');
+
+      return { time, title, address };
+    });
 }
 
 function notify() {
