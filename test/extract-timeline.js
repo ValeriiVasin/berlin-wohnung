@@ -1,7 +1,7 @@
 import test from 'ava';
 import { getTimeTable } from '../index';
 
-test.only('timetableExtractor() - Extracts time/place correctly', async t => {
+test('timetableExtractor() - Extracts time/place correctly', async t => {
   const PAGE_URL = 'http://localhost:8000/termin_available.htm';
   const result = await getTimeTable(PAGE_URL);
 

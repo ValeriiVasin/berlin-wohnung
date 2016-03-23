@@ -49,7 +49,7 @@ function log(message) {
 }
 
 // extract url from booking button
-export function getTerminUrl(terminBookingUrl) {
+export function parseTerminUrl(terminBookingUrl) {
   return co(function *() {
     return yield query(terminBookingUrl, terminUrlExtractor);
   }).catch(errorHandler);
@@ -57,11 +57,11 @@ export function getTerminUrl(terminBookingUrl) {
 
 /**
  * Get available termins
- * @param  {string} url                 Termin Calendar Page url
- * @return {Promise<url|undefined>}     Promise that will be resolved with termin
- *                                      calendar page url that is available for booking
+ * @param  {string} url                   Termin Calendar Page url
+ * @return {Promise<AvailableTermin[]>}  Promise that will be resolved with termin
+ *                                        calendar page url that is available for booking
  */
-function getAvailableTermins(terminCalendarUrl) {
+function parseAvailableTermins(terminCalendarUrl) {
   // months to check
   const unixDates = getMonthsStartDatesUnix(new Date(), 60);
   const requests = unixDates.map(unixDate => ({
@@ -71,39 +71,19 @@ function getAvailableTermins(terminCalendarUrl) {
 
   return co(function *() {
     const responses = yield Promise.all(
-      requests.map(request => getAvailableTerminsForMonth(request.url))
+      requests.map(request => parseAvailableTerminsForMonth(request.url))
     );
 
     // merge termins back
-    const results = responses.map((termins, index) => {
+    return responses.map((termins, index) => {
       return Object.assign({}, requests[index], { termins });
     });
-
-    let terminsFound = 0;
-    results.forEach(({ momentDate, url, termins }) => {
-      log(`${momentDate.format('MMMM')} / ${termins.length} termins available.`);
-      urlsDebug(`Termin check url: ${url}`);
-
-      if (termins.length === 0) {
-        return;
-      }
-
-      terminsFound += termins.length;
-
-      log(`${'-'.repeat(10)} Available termins info: ${'-'.repeat(10)}`);
-      log(`Calendar page: ${url}`);
-      // print termins dates with links
-      termins.forEach(termin => log(`${termin.text}th:\n${termin.url}\n\n`));
-      log(`${'-'.repeat(30)}`);
-    });
-
-    return terminsFound;
   }).catch(errorHandler);
 }
 
 // extract available termins for the month
 // [{ label: string, url: string }] available labels and url to follow
-export function getAvailableTerminsForMonth(url) {
+export function parseAvailableTerminsForMonth(url) {
   return co(function *() {
     return yield query(url, availableCalendarTerminsExtractor);
   }).catch(errorHandler);
@@ -160,12 +140,37 @@ function notify() {
   });
 }
 
+export function availableTerminsCount(availableTermins) {
+  return availableTermins.reduce((acc, availableTermin) => {
+    return acc + availableTermin.termins.length;
+  }, 0);
+}
+
+function printAvailableTerminsInfo(availableTermins) {
+  availableTermins.forEach(({ momentDate, url, termins }) => {
+    log(`${momentDate.format('MMMM')} / ${termins.length} termins available.`);
+    urlsDebug(`Termin check url: ${url}`);
+
+    if (termins.length === 0) {
+      return;
+    }
+
+    log(`${'-'.repeat(10)} Available termins info: ${'-'.repeat(10)}`);
+    log(`Calendar page: ${url}`);
+    // print termins dates with links
+    termins.forEach(termin => log(`${termin.text}th:\n${termin.url}\n\n`));
+    log(`${'-'.repeat(30)}`);
+  });
+}
+
 export function check(terminBookingUrl = TERMIN_BOOKING_URL) {
   return co(function *() {
-    const terminCalendarUrl = yield getTerminUrl(terminBookingUrl);
-    const terminsFound = yield getAvailableTermins(terminCalendarUrl);
+    const terminCalendarUrl = yield parseTerminUrl(terminBookingUrl);
+    const availableTermins = yield parseAvailableTermins(terminCalendarUrl);
 
-    if (terminsFound) {
+    printAvailableTerminsInfo(availableTermins);
+
+    if (availableTerminsCount(availableTermins) !== 0) {
       notify();
     }
   }).catch(errorHandler);
