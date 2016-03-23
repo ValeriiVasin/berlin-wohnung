@@ -24,9 +24,20 @@ const TERMIN_BOOKING_URL = 'https://service.berlin.de/dienstleistung/120686/';
  * };
  *
  * AvailableTermin = {
+ *  // start of month date - moment.js object
  *  momentDate: object,
+ *
+ *  // month url
  * 	url: string,
  * 	termins: Termin[]
+ * };
+ *
+ * // termin extracted from timetable
+ * TimeTableTermin = {
+ *   time: string,
+ *   title: string,
+ *   address: string,
+ *   url: string
  * };
  */
 
