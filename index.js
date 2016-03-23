@@ -17,6 +17,19 @@ const urlsDebug = debug('urls');
 // entry point
 const TERMIN_BOOKING_URL = 'https://service.berlin.de/dienstleistung/120686/';
 
+/**
+ * Termin = {
+ *   url: string,
+ *   text: string
+ * };
+ *
+ * AvailableTermin = {
+ *  momentDate: object,
+ * 	url: string,
+ * 	termins: Termin[]
+ * };
+ */
+
 function errorHandler(err) {
   console.error(`[ERROR] ${err}`);
 }
@@ -120,13 +133,16 @@ function timetableExtractor(document) {
   return Array.from(document.querySelectorAll(TIMETABLE_ROW_SELECTOR))
     .map(row => {
       const time = row.querySelector(TIME_SELECTOR).textContent.trim();
-      const title = row.querySelector(PLACE_SELECTOR).textContent.trim();
-      const linkTitle = row.querySelector(PLACE_SELECTOR).getAttribute('title').trim();
+      const placeLink = row.querySelector(PLACE_SELECTOR);
+
+      const title = placeLink.textContent.trim();
+      const linkTitle = placeLink.getAttribute('title').trim();
+      const url = placeLink.href;
 
       // get everything after "Adresse: "
       const address = linkTitle.replace(/.*Adresse\:\s*/, '');
 
-      return { time, title, address };
+      return { time, title, address, url };
     });
 }
 
