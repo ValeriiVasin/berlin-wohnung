@@ -58,6 +58,7 @@ function query(url, extractor) {
       done: (err, window) => {
         if (err) {
           reject(err);
+          return;
         }
 
         resolve(extractor(window.document));
