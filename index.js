@@ -158,9 +158,9 @@ function timetableExtractor(document) {
     });
 }
 
-function notify() {
+function notify(count) {
   notifier.notify({
-    title: 'Appointment booking possibility',
+    message: `Appointments available: ${count}`,
     icon: path.resolve('./buro.png'),
     contentImage: false,
     sound: 'Ping',
@@ -197,9 +197,8 @@ export function check(terminBookingUrl = TERMIN_BOOKING_URL) {
     const availableTermins = yield parseAvailableTermins(terminCalendarUrl);
 
     printAvailableTerminsInfo(availableTermins);
-
     if (availableTerminsCount(availableTermins) !== 0) {
-      notify();
+      notify(availableTerminsCount(availableTermins));
     }
   }).catch(errorHandler);
 }
