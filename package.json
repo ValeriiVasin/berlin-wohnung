@@ -6,7 +6,7 @@
   "scripts": {
     "test": "babel-node ./node_modules/.bin/ava",
     "cron": "./bin/cron | tee -a logs.txt",
-    "server": "live-server pages/ --port=8000"
+    "start": "live-server pages/ --port=8000"
   },
   "author": "",
   "license": "ISC",
